@@ -1,54 +1,109 @@
 import Link from "next/link";
+import Image from "next/image";
+
+const quickLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/blog", label: "Blog" },
+] as const;
+
+const blogLinks = [
+  { href: "/blog", label: "All posts" },
+  { href: "/blog/category/tech", label: "Tech" },
+  { href: "/blog/category/design", label: "Design" },
+] as const;
+
+const contactLinks = [
+  { href: "tel:09519312028", label: "Phone: 09519312028" },
+  { href: "mailto:earlstevenjpacaldo@gmail.com", label: "Email" },
+  { href: "https://github.com/Earlskyy", label: "Github" },
+] as const;
 
 export function Footer() {
   return (
-    <footer className="mt-5 border-t border-gray-800 py-5">
-        <div className=" container mx-auto px-6 " id="myfooter">
-            <div className="flex justify-between justify-items-center flex-wrap gap-6">
-                <div>   
-                <h2 className="font-bold mb-4 text-xl">My Website</h2>
-                <p>www.mywebsite.com</p>
-                </div>
-
-                {/* Social Media Links */}
-                <div>
-                <h2 className="font-bold mb-4 text-xl">Follow Me</h2>
-                <ul className=" flex flex-col gap-2">
-                    <li><Link href="https://www.facebook.com/earlsteven.pacaldo.3/">Facebook</Link></li>
-                    <li><Link href="https://www.twitter.com/">Twitter</Link></li>
-                    <li><Link href="https://www.instagram.com/">Instagram</Link></li>
-                    <li><Link href="https://www.linkedin.com/in/earlsteven-pacaldo-5b4b2521b/">LinkedIn</Link></li>
-                </ul>
-                </div>
-
-                {/* Quick Links */}
-                <div>
-                <h2 className="font-bold mb-4 text-xl">Quick Links</h2>
-                <ul className="flex flex-col gap-2">
-                    <li><Link href="/">Home</Link></li>
-                    <li><Link href="/about">About</Link></li>
-                    <li><Link href="/projects">Projects</Link></li>
-                    <li><Link href="/blog">Blogs</Link></li>
-                </ul>
-                </div>
-
-                {/* Contact Info */}
-                <div>
-                    <h2 className="font-bold mb-4 text-xl">Contact Me</h2>
-                    <ul>
-                        <li>Email: earlstevenpacaldo@gmail.com</li>
-                        <li>Phone: 09123456789</li>
-                        
-                    </ul>
-                </div>
-
+    <footer className="w-full border-t border-border bg-muted/30">
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10">
+        <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+          {/* Brand */}
+           <div className="flex items-center gap-3">
+            <Image
+              src="/ownlogofinal.png"
+              alt="ESP Logo"
+              width={40}
+              height={40}
+              className="h-12 w-auto"
+            />
+          
+            <div className="flex flex-col leading-tight">
+              <Link
+                href="/"
+                className="font-bold text-lg sm:text-xl md:text-2xl text-foreground"
+              >
+                Earl Steven Pacaldo
+              </Link>
+          
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Web Developer
+              </p>
+               <p className="text-xs sm:text-sm text-muted-foreground">
+                Cebu, Philippines
+              </p>
             </div>
-            
-        </div>
+          </div>
 
-        <div className="w-full text-center mt-4 border-t border-gray-300 pt-4">
-                    <p className="text-sm text-gray-500">© 2026 MyWebsite. All rights reserved.</p>
-                </div>
+          {/* Quick links */}
+          <div>
+            <h3 className="mb-3 text-sm font-medium text-foreground">Quick links</h3>
+            <ul className="space-y-2">
+              {quickLinks.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Blog */}
+          <div>
+            <h3 className="mb-3 text-sm font-medium text-foreground">Blog</h3>
+            <ul className="space-y-2">
+              {blogLinks.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="mb-3 text-sm font-medium text-foreground">Contact</h3>
+            <ul className="space-y-2">
+              {contactLinks.map(({ href, label }) => (
+                <li key={label}>
+                  <Link
+                    href={href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </footer>
-  )
-  }
+  );
+}

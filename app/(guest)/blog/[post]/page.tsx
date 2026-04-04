@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { blog_Post } from "@/constants/blog";
 import { notFound } from "next/navigation";
@@ -39,7 +38,3 @@ export default async function BlogPostPage({
     </article>
   );
 }
-
-//   )
-
-

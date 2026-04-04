@@ -1,92 +1,97 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+"use client";
 
-const projects = [
-  {
-    id: 1,
-    title: "Project 1",
-    description:
-      "This is my first project description.",
-    image: "https://avatar.vercel.sh/shadcn1",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Project 2",
-    description:
-      "This is my second project description.",
-    image: "https://avatar.vercel.sh/shadcn2",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "Project 3",
-    description:
-      "This is my third project description.",
-    image: "https://avatar.vercel.sh/shadcn3",
-    featured: false,
-  },
-  // add more projects here 👀
-]
+import { useMemo, useState } from "react";
+import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ProjectCard } from "@/components/common/ProjectCard";
+import { PROJECTS } from "@/constants/project";
+
+const categories = [
+  "All",
+  ...Array.from(new Set(PROJECTS.map((project) => project.category).filter(Boolean))),
+];
 
 export default function ProjectsPage() {
-  return (
-    <main className="mx-auto max-w-7xl px-6 py-10">
-      {/* Header */}
-      <div className="mb-10 text-center">
-        <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
-        <p className="mt-2 text-muted-foreground">
-          A collection of things I’ve built and worked on.
-        </p>
-      </div>
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => (
-          <Card
-            key={project.id}
-            className="group relative overflow-hidden transition hover:-translate-y-1 hover:shadow-lg"
-          >
-            {/* Image */}
-            <div className="relative">
-              <div className="absolute inset-0 z-10 bg-black/40 transition group-hover:bg-black/25" />
-              <img
-                src={project.image}
-                alt={project.title}
-                className="aspect-video w-full object-cover"
-              />
+  const filteredProjects = useMemo(
+    () =>
+      PROJECTS.filter((project) => {
+        const query = searchQuery.toLowerCase();
+        const text = [project.title, project.description, project.category]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+        const matchesSearch = text.includes(query);
+        const matchesCategory =
+          activeCategory === "All" || project.category === activeCategory;
+
+        return matchesSearch && matchesCategory;
+      }),
+    [searchQuery, activeCategory]
+  );
+
+  return (
+    <main className="mx-auto min-h-screen max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="space-y-10">
+        <div className="rounded-3xl border border-border bg-background/80 p-6 shadow-sm shadow-slate-900/5">
+          <div className="flex flex-col gap-8 xl:flex-row xl:items-end xl:justify-between">
+            <div className="space-y-6">
+              <div className="inline-flex items-center rounded-full bg-muted px-4 py-2 text-sm font-medium text-muted-foreground">
+                Projects
+              </div>
+              <div className="max-w-2xl space-y-3">
+                <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+                  My Projects
+                </h1>
+                <p className="max-w-xl text-base leading-7 text-muted-foreground">
+                  A curated selection of websites, web apps, and tools built to solve real problems and bring ideas to life.
+                </p>
+              </div>
             </div>
 
-            {/* Content */}
-            <CardHeader>
-              {project.featured && (
-                <CardAction>
-                  <Badge variant="secondary">Featured</Badge>
-                </CardAction>
-              )}
-              <CardTitle className="leading-tight">
-                {project.title}
-              </CardTitle>
-              <CardDescription>{project.description}</CardDescription>
-            </CardHeader>
+            <div className="w-full max-w-md">
+              <label htmlFor="project-search" className="sr-only">
+                Search projects
+              </label>
+              <div className="relative">
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <input
+                  id="project-search"
+                  type="text"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  placeholder="Search projects"
+                  className="w-full rounded-full border border-border bg-transparent py-4 pl-12 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/30"
+                />
+              </div>
+            </div>
+          </div>
 
-            <CardFooter>
-              <Button asChild className="w-full">
-                <Link href="/">View Project</Link>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant={activeCategory === category ? "default" : "outline"}
+                size="sm"
+                className="rounded-full px-4"
+                onClick={() => setActiveCategory(category)}
+              >
+                {category}
               </Button>
-            </CardFooter>
-          </Card>
-        ))}
+            ))}
+          </div>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          {filteredProjects.map((project) => (
+            <ProjectCard key={project.title} project={project} />
+          ))}
+        </div>
       </div>
     </main>
-  )
+  );
 }
+ 
