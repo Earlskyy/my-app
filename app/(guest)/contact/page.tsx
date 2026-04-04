@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, Github, Twitter, Facebook } from "lucide-react";
 
@@ -141,7 +142,16 @@ export default function ContactPage() {
 
           {/* Image/Visual */}
           <div className="flex items-center justify-center">
-            <div className="aspect-square w-full max-w-sm rounded-3xl border-2 border-border bg-gradient-to-br from-primary/10 via-primary/5 to-background shadow-sm" />
+            <div className="aspect-square w-full max-w-sm overflow-hidden rounded-3xl border-2 border-border shadow-sm">
+              <Image
+                src="/contactpic.jpg"
+                alt="Contact Picture"
+                width={500}
+                height={500}
+                className="h-full w-full object-cover"
+                priority
+              />
+            </div>
           </div>
         </div>
 

@@ -44,6 +44,7 @@ export function Header() {
     <Link
       href="/"
       className="font-bold text-lg sm:text-xl md:text-2xl text-foreground"
+      style={{ fontFamily: 'var(--font-display)' }}
     >
       Earl Steven Pacaldo
     </Link>

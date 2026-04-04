@@ -43,12 +43,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ categ
       {/* Filter Category */}
       <div className="mt-6 mb-4 flex gap-3">
         <Link href="/blog">
-          <Button variant="outline">All Posts</Button>
+          <Button variant={!category || category.length === 0 ? "default" : "outline"}>All Posts</Button>
         </Link>
 
-        {blog_categories.map((category) => (
-          <Link key={category.slug} href={`/blog/category/${category.slug}`}>
-            <Button variant="outline">{category.name}</Button>
+        {blog_categories.map((cat) => (
+          <Link key={cat.slug} href={`/blog/category/${cat.slug}`}>
+            <Button variant={category?.[0] === cat.slug ? "default" : "outline"}>
+              {cat.name}
+            </Button>
           </Link>
         ))}
       </div>

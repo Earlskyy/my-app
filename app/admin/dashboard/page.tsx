@@ -21,12 +21,18 @@ export default function AdminDashboard() {
     }
 
     setIsAuthenticated(true);
-
-    // Load messages from localStorage
+    
+    // Load messages immediately
     const storedMessages = localStorage.getItem("contactMessages");
     if (storedMessages) {
-      setMessages(JSON.parse(storedMessages));
+      try {
+        const parsedMessages = JSON.parse(storedMessages);
+        setMessages(parsedMessages);
+      } catch (error) {
+        console.error("Error parsing messages:", error);
+      }
     }
+    
     setLoading(false);
   }, [router]);
 

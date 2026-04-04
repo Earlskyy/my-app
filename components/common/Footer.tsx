@@ -10,12 +10,12 @@ const quickLinks = [
 
 const blogLinks = [
   { href: "/blog", label: "All posts" },
-  { href: "/blog/category/tech", label: "Tech" },
-  { href: "/blog/category/design", label: "Design" },
+  { href: "/blog/category/MyLife", label: "My Life" },
+  { href: "/blog/category/Friends", label: "Friends" },
 ] as const;
 
 const contactLinks = [
-  { href: "tel:09519312028", label: "Phone: 09519312028" },
+  { href: "tel:09519312028", label: "09519312028" },
   { href: "mailto:earlstevenjpacaldo@gmail.com", label: "Email" },
   { href: "https://github.com/Earlskyy", label: "Github" },
 ] as const;

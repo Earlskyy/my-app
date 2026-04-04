@@ -11,13 +11,17 @@ export default function AboutPage() {
         <div className="rounded-3xl border border-border bg-background/80 p-8 shadow-sm shadow-slate-900/5 lg:p-12">
           <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
             {/* Profile Image */}
-            <div className="flex justify-center">
+            <div className="flex flex-col items-center gap-4">
               <div className="aspect-square w-full max-w-sm overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/20 via-primary/10 to-background shadow-sm">
                 <img
-                  src="/profilepic2.png"
+                  src="/aboutpicfinal.jpg"
                   alt="Profile"
                   className="h-full w-full object-cover"
                 />
+              </div>
+              <div className="text-center">
+                <h2 className="text-2xl font-semibold text-foreground">Earl Steven J. Pacaldo</h2>
+                <p className="text-sm text-muted-foreground">August 01, 2002</p>
               </div>
             </div>
 
