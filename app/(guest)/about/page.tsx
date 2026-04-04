@@ -1,7 +1,7 @@
 
 "use client";
 
-import { EXPERIENCES } from "@/constants/about";
+import { EXPERIENCES, EDUCATION } from "@/constants/about";
 
 export default function AboutPage() {
   return (
@@ -94,6 +94,56 @@ export default function AboutPage() {
 
                 {/* Spacer for desktop layout */}
                 <div className="hidden lg:block flex-1" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Education Section */}
+        <div className="space-y-12">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+              Education
+            </h2>
+          </div>
+
+          {/* Education Grid */}
+          <div className="grid gap-6 lg:gap-8">
+            {EDUCATION.map((edu, index) => (
+              <div
+                key={index}
+                className="group relative rounded-2xl border border-border bg-background/50 p-6 hover:bg-background/80 transition-all hover:border-primary/50 hover:shadow-md"
+              >
+                <div className="absolute top-4 right-4 h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <div className="h-2 w-2 rounded-full bg-primary" />
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-wider font-semibold text-primary/70 mb-2">
+                      {edu.level}
+                    </p>
+                    <h3 className="text-xl font-semibold text-foreground">
+                      {edu.school}
+                    </h3>
+                    {edu.course && (
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {edu.course}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-2 border-t border-border">
+                    <p className="text-sm font-medium text-muted-foreground">
+                      {edu.duration}
+                    </p>
+                    {edu.honors && (
+                      <span className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary w-fit">
+                        {edu.honors}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
