@@ -24,6 +24,9 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Earl Steven Pacaldo",
   description: "My Professional Portfolio",
+  icons: {
+    icon: "/ownlogofinal.png",
+  },
 };
 
 export default function RootLayout({
